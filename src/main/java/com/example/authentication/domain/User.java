@@ -8,42 +8,28 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity @Table(name = "users")
+@Entity @Table(name = "user")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
-    private String first_name;
-
-    @Column(name = "last_name")
-    private String last_name;
-
+    @Column(unique = true)
     private String email;
+    private String firstName;
+    private String lastName;
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user", referencedColumnName = "email"),
-            inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "name")
+            joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "id")
     )
-    Set<Role> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
-//    public void addRole(Role role){
-//        this.roles.add(role);
-//    }
-
-    public User(String first_name, String last_name, String email, String password, Set<Role> roles) {
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
+    public void addRole(Role role){
+        this.roles.add(role);
     }
 }

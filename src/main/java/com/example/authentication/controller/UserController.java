@@ -9,14 +9,15 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/users")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
     @PostConstruct
-    public void initAdmin(){
-        userService.initAdmin();
+    public void initSuperUser(){
+        userService.initSuperUser();
     }
 
     @GetMapping

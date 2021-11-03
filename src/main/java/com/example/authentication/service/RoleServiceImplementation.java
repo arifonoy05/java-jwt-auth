@@ -61,8 +61,12 @@ public class RoleServiceImplementation implements RoleService{
 
     @Override
     public void initRole(){
-        Role role = new Role();
-        role.setName("ADMIN");
-        roleRepository.save(role);
+        Role adminRole = new Role();
+        adminRole.setName("ADMIN");
+        roleRepository.save(adminRole);
+
+        Role userRole = new Role();
+        userRole.setName("USER");
+        roleRepository.save(userRole);
     }
 }
